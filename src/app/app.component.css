@@ -1,0 +1,12 @@
+.room-title {
+  margin-bottom: 32px;
+}
+.team-box, .observer-box {
+  padding: 25px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.ng-star-inserted {
+  height: 93%;
+}

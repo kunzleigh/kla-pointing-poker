@@ -1,0 +1,12 @@
+<mat-grid-list cols="3" rowHeight="200px" fxFill fxLayout="row" fxLayoutAlign="center center">
+  <mat-grid-tile
+    *ngFor="let tile of points"
+    [colspan]="1"
+    [rowspan]="1">
+    <mat-card fxFlex="75" class="mat-elevation-z4 point-tile" fxLayoutAlign="center center" (click)="vote(tile.value)">
+      <mat-card-content fxLayout="row">
+        <h1 class="mat-display-1">{{ tile.text }}</h1>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,18 @@
+<form fxLayout="column">
+  <div fxLayout="row">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Session ID" [(ngModel)]="session" required name="session"/>
+    </mat-form-field>
+
+  </div>
+  <div fxLayout="row">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Alias" [(ngModel)]="alias" name="alias"/>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <mat-checkbox [(ngModel)]="observer" color="primary" value="true" name="observer">Observer</mat-checkbox>
+    <span fxFlex></span>
+    <button mat-button color="primary" (click)="login()">Login with Google</button>
+  </div>
+</form>

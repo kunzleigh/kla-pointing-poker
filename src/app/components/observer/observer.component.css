@@ -1,0 +1,32 @@
+.point-tile, .data-tile {
+  border-radius: 10px;
+  height: 85%;
+}
+
+.ticket-data {
+  padding: 16px;
+  border-radius: 10px;
+  height: 68%;
+  width: 93%;
+}
+
+.ticket-description {
+  overflow-y:scroll;
+  margin: 8px 0;
+}
+
+.past-tickets {
+  overflow-y: scroll;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.point-value {
+  margin: 0;
+}
+
+.user-list {
+  padding-top: 0;
+}

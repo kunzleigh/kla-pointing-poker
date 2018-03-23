@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$kla-primary: mat-palette($mat-blue, 400);
+$kla-accent: mat-palette($mat-green, 100);
+$kla-warn: mat-palette($mat-red, 300);
+$kla-background: mat-palette($mat-blue-gray, 50);
+$kla-theme: mat-light-theme($kla-primary, $kla-accent, $kla-warn);
+
+@include angular-material-theme($kla-theme);
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: mat-color($kla-background);
+  height: 100%;
+}
+
+#app-component {
+  margin: 0;
+  padding: 60px;
+  height: 85%;
+}
+
+.full-width {
+  width: 100%;
+}

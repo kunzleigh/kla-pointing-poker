@@ -1,0 +1,8 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="nav-bar">
+  <img src="assets/img/KLA-HeaderLogo.png" alt="Kunz, Leigh & Associates.">
+  <mat-divider [vertical]="true" class="nav-divider"></mat-divider>
+  <span class="mat-headline nav-title">Pointing Poker</span>
+  <span fxFlex></span>
+  <span class="mat-subheading-1 nav-info" *ngIf="_authService.session">Session: {{_authService.session}}</span>
+  <button mat-raised-button (click)="logout()" color="warn" class="logout" *ngIf="_authService.currentUser">Logout</button>
+</mat-toolbar>
