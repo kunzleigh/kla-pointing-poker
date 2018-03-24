@@ -11,12 +11,12 @@
 }
 
 .ticket-description {
-  overflow-y:scroll;
+  overflow-y: auto;
   margin: 8px 0;
 }
 
 .past-tickets {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .full-height {

@@ -45,7 +45,7 @@ export class ObserverComponent implements OnInit {
       this.voterCount = this.howManyNonObservers();
     });
     this._dbService.readList(this._authService.session + '/tickets').valueChanges().map(tickets => {
-      return tickets.filter(ticket => typeof ticket !== 'number');
+      return tickets.filter((ticket: any) => typeof ticket !== 'number' && ticket.uid);
     }).subscribe(tickets => {
       this.pastTickets = tickets;
     });
@@ -79,7 +79,7 @@ export class ObserverComponent implements OnInit {
       }
     });
     this._dbService.readProperty(this._authService.session + '/tickets/nonce').valueChanges().subscribe((nonce: number) => {
-      this.ticketNonce = nonce;
+      this.ticketNonce = nonce === null ? 1 : nonce;
       this._dbService.readProperty(this._authService.session + '/tickets/' + this.ticketNonce).valueChanges()
         .subscribe((currentTicket: any) => {
           if (currentTicket) {

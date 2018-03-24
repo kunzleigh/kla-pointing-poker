@@ -50,7 +50,7 @@ export class TeamComponent implements OnInit {
       }
     });
     this._dbService.readProperty(this._authService.session + '/tickets/nonce').valueChanges().subscribe((nonce: number) => {
-      this.ticketNonce = nonce;
+      this.ticketNonce = nonce === null ? 1 : nonce;
       this._dbService.readProperty(this._authService.session + '/tickets/' + this.ticketNonce).valueChanges()
         .subscribe((currentTicket: any) => {
           if (currentTicket) {
