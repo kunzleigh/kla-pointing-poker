@@ -23,4 +23,7 @@ export class DbService {
     this._afDb.object(location).remove();
   }
 
+  getRef(location: string) {
+    return this._afDb.database.ref(location);
+  }
 }
