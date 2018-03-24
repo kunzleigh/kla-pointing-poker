@@ -14,8 +14,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.session = 'THISISATEST';
-    this.observer = true;
   }
 
   login() {

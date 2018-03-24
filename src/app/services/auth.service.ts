@@ -11,7 +11,7 @@ export class AuthService {
   private _session: string;
   private _alias: string;
   private _observer: boolean;
-
+  private _killswitch: Observable<boolean>;
   constructor(private _afAuth: AngularFireAuth, private _dbService: DbService) {
     this._authState = this._afAuth.authState;
     this._authState.subscribe(user => {
@@ -29,11 +29,15 @@ export class AuthService {
           userToPost['alias'] = this._alias;
         }
         this._dbService.setProperty(this._session + '/users/' + user.uid, userToPost);
+        this._dbService.readProperty('killswitch').valueChanges().subscribe(ks => {
+          if (ks && this.currentUser) {
+            this.logout(this.currentUser.uid);
+          }
+        });
       } else {
         this._currentUser = null;
       }
     });
-    this.session = 'THISISATEST';
   }
 
   get authState() {
@@ -72,9 +76,10 @@ export class AuthService {
     return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  logout() {
+  logout(uid: string) {
+    this._dbService.removeProperty(this.session + '/users/' + uid);
+    this.session = null;
     this._afAuth.auth.signOut().then(success => {
-
     }, failure => {
 
     });

@@ -4,5 +4,5 @@
   <span class="mat-headline nav-title">Pointing Poker</span>
   <span fxFlex></span>
   <span class="mat-subheading-1 nav-info" *ngIf="_authService.session">Session: {{_authService.session}}</span>
-  <button mat-raised-button (click)="logout()" color="warn" class="logout" *ngIf="_authService.currentUser">Logout</button>
+  <button mat-raised-button (click)="logout(_authService.currentUser.uid)" color="warn" class="logout" *ngIf="_authService.currentUser">Logout</button>
 </mat-toolbar>

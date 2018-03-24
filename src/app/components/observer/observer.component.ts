@@ -53,6 +53,7 @@ export class ObserverComponent implements OnInit {
       let tmpSum = 0;
       let tmpConsensus = false;
       let previousVote;
+      this.userVotes = {};
       votes.forEach((vote: any, index: number) => {
         tmpSum += vote.points;
         if (index === 0) {
