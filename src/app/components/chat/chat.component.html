@@ -14,10 +14,10 @@
   <div fxLayout="row" fxLayoutAlign="space-between center" class="message-area">
     <form fxFlex="100">
       <mat-form-field fxFill="">
-        <textarea matInput placeholder="Enter message here..." rows="5" [(ngModel)]="newMessage"
+        <textarea matInput placeholder="Enter message here..." rows="5" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()"
               name="New Message"></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="send-button" (click)="sendMessage()" [disabled]="!newMessage">Send</button>
+      <button mat-raised-button color="primary" class="send-button" (click)="sendMessage()" (keyup.enter)="sendMessage()" [disabled]="!newMessage">Send</button>
     </form>
   </div>
 

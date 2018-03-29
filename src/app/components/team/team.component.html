@@ -3,8 +3,6 @@
     <mat-form-field>
       <input matInput placeholder="JIRA Ticket Number" [(ngModel)]="ticket" required name="ticketNumber" (keyup)="pushTicket()"/>
     </mat-form-field>
-    <span fxFlex></span>
-    <button mat-raised-button color="primary" (click)="clear()" class="reset">Reset Ticket</button>
   </div>
   <div fxLayout="row">
     <mat-form-field class="full-width">
@@ -48,5 +46,6 @@
   <mat-icon class="mat-18 point-average" *ngIf="percentVoted === 100 && consensus" color="primary">mood</mat-icon>
 </div>
 <div fxLayout="row" fxLayoutAlign="end">
+  <button mat-raised-button color="primary" (click)="clear()" class="reset">Reset Ticket</button>
   <button mat-raised-button color="accent" [disabled]="!consensus" (click)="saveAndClear()">Save and Clear</button>
 </div>
