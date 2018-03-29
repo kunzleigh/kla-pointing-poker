@@ -13,7 +13,7 @@ import {PointGridComponent} from './components/point-grid/point-grid.component';
 // Material
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDividerModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -25,6 +25,7 @@ import {FormsModule} from '@angular/forms';
 import {DbService} from './services/db.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { ObserverComponent } from './components/observer/observer.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ObserverComponent } from './components/observer/observer.component';
     PointGridComponent,
     NavComponent,
     LoginComponent,
-    ObserverComponent
+    ObserverComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ import { ObserverComponent } from './components/observer/observer.component';
     MatIconModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatSidenavModule,
     FlexLayoutModule
   ],
   providers: [AuthService, DbService],

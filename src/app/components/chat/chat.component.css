@@ -1,0 +1,16 @@
+.send-button {
+  color: white;
+}
+
+.message-area {
+  padding: 24px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.chat-list {
+  overflow-y: scroll;
+}

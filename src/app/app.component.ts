@@ -9,6 +9,7 @@ import {AuthService} from './services/auth.service';
 export class AppComponent {
 
   public currentUser;
+  public chatOpened: boolean;
 
   constructor(public _authService: AuthService) {
     this._authService.authState.subscribe(user => {

@@ -9,13 +9,21 @@ import {DbService} from './db.service';
 @Injectable()
 export class AuthService {
   private _authState: Observable<firebase.User>;
-  private _currentUser: firebase.User;
+  public _currentUser: firebase.User;
   private _session: string;
   private _alias: string;
   private _observer: boolean;
   private _killswitch: Observable<boolean>;
   private _isConnected: Observable<boolean>;
+
   constructor(private _afAuth: AngularFireAuth, private _dbService: DbService) {
+    // Check if cache exists
+    const cache = this.retrieveFromCache();
+    if (cache.session) {
+      this.observer = Boolean(this.observer);
+      this.alias = cache.alias;
+      this.session = cache.session;
+    }
     this._authState = this._afAuth.authState;
     this._authState.subscribe(user => {
       if (user) {
@@ -30,6 +38,9 @@ export class AuthService {
         };
         if (this._alias) {
           userToPost['alias'] = this._alias;
+        } else  {
+          userToPost['alias'] = user.displayName;
+          this.alias = user.displayName;
         }
         this._dbService.setProperty(this.session + '/users/' + user.uid, userToPost);
         this._dbService.getRef(this.session + '/users/' + user.uid).onDisconnect().set(null);
@@ -114,4 +125,12 @@ export class AuthService {
     window.localStorage.removeItem('alias');
   }
 
+  retrieveFromCache() {
+    return {
+      observer: window.localStorage.getItem('observer'),
+      session: window.localStorage.getItem('session'),
+      currentUser: window.localStorage.getItem('currentUser'),
+      alias: window.localStorage.getItem('alias'),
+    };
+  }
 }
