@@ -14,7 +14,9 @@ export class ChatComponent implements OnInit {
   public chatRef: any;
   public newMessage: string;
   public currentUser: any;
+  public inputOpen: boolean;
   constructor(private _dbService: DbService, private _authService: AuthService) {
+    this.inputOpen = true;
     this._dbService.readList(this._authService.session + '/chat').valueChanges().subscribe(chats => {
       this.chat = chats;
     });
@@ -39,6 +41,10 @@ export class ChatComponent implements OnInit {
     };
     this.chatRef.push(chatMessage);
     this.newMessage = '';
+  }
+
+  toggleInput() {
+    this.inputOpen = !this.inputOpen;
   }
 
   private getDateString() {
