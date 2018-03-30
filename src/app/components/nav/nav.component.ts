@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {ThemeService} from '../../theme.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,7 +9,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(public _authService: AuthService) {
+  constructor(public _authService: AuthService, public _themeService: ThemeService) {
   }
 
   ngOnInit() {
@@ -18,4 +19,11 @@ export class NavComponent implements OnInit {
     this._authService.logout(uid);
   }
 
+  setDark() {
+    this._themeService.isDark = true;
+  }
+
+  setLight() {
+    this._themeService.isDark = false;
+  }
 }

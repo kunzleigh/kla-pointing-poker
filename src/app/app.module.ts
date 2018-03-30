@@ -12,8 +12,9 @@ import {PointGridComponent} from './components/point-grid/point-grid.component';
 
 // Material
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDividerModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule,
-  MatProgressBarModule, MatSidenavModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatGridListModule, MatIconModule, MatInputModule,
+  MatListModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -26,6 +27,9 @@ import {DbService} from './services/db.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { ObserverComponent } from './components/observer/observer.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { StagedUsersComponent } from './components/staged-users/staged-users.component';
+import { WaitingComponent } from './components/waiting/waiting.component';
+import {ThemeService} from './theme.service';
 
 
 @NgModule({
@@ -38,7 +42,12 @@ import { ChatComponent } from './components/chat/chat.component';
     NavComponent,
     LoginComponent,
     ObserverComponent,
-    ChatComponent
+    ChatComponent,
+    StagedUsersComponent,
+    WaitingComponent
+  ],
+  entryComponents: [
+    StagedUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -57,10 +66,12 @@ import { ChatComponent } from './components/chat/chat.component';
     MatIconModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
+    MatDialogModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, DbService],
+  providers: [AuthService, DbService, ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

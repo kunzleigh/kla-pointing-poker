@@ -1,31 +1,37 @@
-<app-nav></app-nav>
-<div *ngIf="currentUser;let currentUser; else login">
-  <mat-sidenav-container class="chat-container ">
-    <mat-sidenav #sidenav mode="side" [(opened)]="chatOpened" class="chat-drawer">
-      <app-chat fxFill></app-chat>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <button mat-fab (click)="sidenav.toggle()" color="primary" class="chat-button">
-        <mat-icon class="mat-24">chat_bubble_outline</mat-icon>
-      </button>
-      <div *ngIf="!_authService.observer">
-        <div fxLayout="row" fxLayoutGap="35px" fxFill id="app-component">
-          <div fxLayout="column" fxFlex="65" fxFill>
-            <app-point-grid></app-point-grid>
+<div fxLayout="column" fxFill [ngClass]="{'kla-dark': _themeService.isDark}">
+  <app-nav></app-nav>
+  <div *ngIf="_authService.currentUser;let currentUser; else login">
+    <mat-sidenav-container class="chat-container" *ngIf="!_authService.currentUser.staging">
+      <mat-sidenav #sidenav mode="side" [(opened)]="chatOpened" class="chat-drawer">
+        <app-chat fxFill></app-chat>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <button mat-fab (click)="sidenav.toggle()" color="primary" class="chat-button">
+          <mat-icon class="mat-24">chat_bubble_outline</mat-icon>
+        </button>
+        <div *ngIf="!_authService.observer">
+          <div fxLayout="row" fxLayoutGap="35px" fxFill id="app-component">
+            <div fxLayout="column" fxFlex="65" fxFill>
+              <app-point-grid></app-point-grid>
+            </div>
+            <app-team fxFlex="35" class="mat-elevation-z7"></app-team>
           </div>
-          <app-team fxFlex="35" class="mat-elevation-z7 team-box"></app-team>
         </div>
-      </div>
-      <div *ngIf="_authService.observer" fxFill>
-        <div fxLayout="row" fxFill fxLayoutAlign="center center">
-          <app-observer class="mat-elevation-z7 observer-box" fxFlex="95"></app-observer>
+        <div *ngIf="_authService.observer" fxFill>
+          <div fxLayout="row" fxFill fxLayoutAlign="center center">
+            <app-observer class="mat-elevation-z7 observer-box" fxFlex="95"></app-observer>
+          </div>
         </div>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
-<ng-template #login>
-  <div fxLayout="row" fxLayoutAlign="center center" fxFill>
-    <app-login fxFlex="35" class="mat-elevation-z7 team-box"></app-login>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
-</ng-template>
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="95"
+       *ngIf="_authService.currentUser && _authService.currentUser.staging">
+    <app-waiting fxFlex="15" class="mat-elevation-z7 waiting-box"></app-waiting>
+  </div>
+  <ng-template #login>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFill>
+      <app-login fxFlex="35" class="mat-elevation-z7 team-box"></app-login>
+    </div>
+  </ng-template>
+</div>

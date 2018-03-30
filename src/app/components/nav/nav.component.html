@@ -1,8 +1,21 @@
 <mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="nav-bar">
-  <img src="assets/img/KLA-HeaderLogo.png" alt="Kunz, Leigh & Associates.">
+  <img src="assets/img/KLA-HeaderLogo.png" alt="Kunz, Leigh & Associates." *ngIf="!_themeService.isDark">
+  <img src="assets/img/KLA-HeaderLogo-Dark.png" alt="Kunz, Leigh & Associates." *ngIf="_themeService.isDark">
   <mat-divider [vertical]="true" class="nav-divider"></mat-divider>
   <span class="mat-headline nav-title">Pointing Poker</span>
   <span fxFlex></span>
+  <mat-grid-list cols="2" rowHeight="64px" class="theme-selector">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" (click)="setDark()">
+      <svg height="50" width="50">
+        <circle cx="25" cy="25" r="12" stroke="black" stroke-width="3" fill="black" />
+      </svg>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1" (click)="setLight()">
+      <svg height="50" width="50">
+        <circle cx="25" cy="25" r="12" stroke="black" stroke-width="3" fill="white" />
+      </svg>
+    </mat-grid-tile>
+  </mat-grid-list>
   <span class="mat-subheading-1 nav-info" *ngIf="_authService.session">Session: {{_authService.session}}</span>
   <button mat-raised-button (click)="logout(_authService.currentUser.uid)" color="warn" class="logout" *ngIf="_authService.currentUser">Logout</button>
 </mat-toolbar>

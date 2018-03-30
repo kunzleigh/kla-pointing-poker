@@ -19,3 +19,9 @@
 .nav-bar {
   border-bottom: 1px solid rgb(200,200,200);
 }
+
+
+.theme-selector {
+  width: 100px;
+  margin-right: 16px;
+}

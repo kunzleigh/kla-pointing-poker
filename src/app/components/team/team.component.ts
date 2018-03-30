@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DbService} from '../../services/db.service';
 import {AuthService} from '../../services/auth.service';
+import {MatDialog} from '@angular/material';
+import {StagedUsersComponent} from '../staged-users/staged-users.component';
 
 @Component({
   selector: 'app-team',
@@ -17,14 +19,22 @@ export class TeamComponent implements OnInit {
   pointSum: number;
   consensus: boolean;
   voterCount: number;
-  constructor(private _dbService: DbService, private _authService: AuthService) {
+  stagedUsersDialogOpen: boolean;
+  constructor(private _dbService: DbService, private _authService: AuthService,
+              private matDialog: MatDialog) {
     this.percentVoted = 0;
+    this.stagedUsersDialogOpen = false;
   }
 
   ngOnInit() {
     this._dbService.readList(this._authService.session + '/users').valueChanges().subscribe(users => {
       this.users = users;
       this.voterCount = this.howManyNonObservers();
+    });
+    this._dbService.readList(this._authService.session + '/staged').valueChanges().subscribe(stagedUsers => {
+      if (!this.stagedUsersDialogOpen && stagedUsers.length > 0) {
+        this.openStagedUsersDialog();
+      }
     });
     this._dbService.readList(this._authService.session + '/votes').valueChanges().map(votes => {
       let tmpSum = 0;
@@ -62,7 +72,7 @@ export class TeamComponent implements OnInit {
             this.percentVoted = 0;
             this.votes = [];
             this.pointSum = 0;
-            this._dbService.setProperty(this._authService.session + '/users/' + this._authService.currentUser.uid + '/hasVoted', false);
+            // this._dbService.setProperty(this._authService.session + '/users/' + this._authService.currentUser.uid + '/hasVoted', false);
           }
         });
     });
@@ -97,5 +107,16 @@ export class TeamComponent implements OnInit {
     this._dbService.setProperty(this._authService.session + '/tickets/' + this.ticketNonce + '/agreedPoints', this.votes[0].points);
     this._dbService.setProperty(this._authService.session + '/tickets/' + this.ticketNonce + '/uid', this.ticketNonce);
     this.clear();
+  }
+
+  openStagedUsersDialog() {
+    this.stagedUsersDialogOpen = true;
+    const dialogRef = this.matDialog.open(StagedUsersComponent, {
+      width: '35%',
+      height: '35%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

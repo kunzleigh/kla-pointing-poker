@@ -1,0 +1,20 @@
+<div fxLayout="column" class="dialog-container">
+  <h2 mat-dialog-title>A wild new user appears!</h2>
+  <mat-dialog-content>
+    <mat-list>
+      <mat-list-item *ngFor="let user of stagedUsers; let last = last;">
+        <img src="{{user.img}}" alt="{{user.displayName}}'s Image" matListAvatar>
+        <span class="mat-subheading-1" mat-line *ngIf="!user.alias">{{user.displayName}}</span>
+        <span class="mat-subheading-1" mat-line *ngIf="user.alias">{{user.alias}}</span>
+        <span class="mat-caption" mat-line>{{user.email}}</span>
+        <mat-icon class="mat-18" color="primary" *ngIf="user.observer">search</mat-icon>
+        <button mat-raised-button color="primary" class="approve" tabIndex="-1" (click)="approveUser(user)">Approve</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-dialog-content>
+  <span fxFlex></span>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" class="approve">Approve All</button>
+  </mat-dialog-actions>
+</div>

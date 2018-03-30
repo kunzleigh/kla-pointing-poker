@@ -1,9 +1,8 @@
 .room-title {
   margin-bottom: 32px;
 }
-.team-box, .observer-box {
+.team-box, .observer-box, .waiting-box {
   padding: 25px;
-  background-color: white;
   border-radius: 10px;
 }
 

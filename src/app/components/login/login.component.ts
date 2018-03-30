@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
       this._authService.session = this.session;
       this._authService.alias = this.alias;
       this._authService.observer = this.observer;
-      console.log(this.observer);
       this._authService.loginWithGoogle().then(success => {
 
       }, rejected => {

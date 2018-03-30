@@ -1,15 +1,16 @@
 <div fxLayout="column" fxFill>
   <mat-list class="chat-list" id="chat-list">
-    <mat-list-item *ngFor="let message of chat; let last = last;let index = index" id="{{index}}-message">
+    <mat-list-item *ngFor="let message of chat; let last = last;let index = index" id="{{index}}-message" class="chat-item">
       <img src="{{message.user.img}}" alt="{{message.user.displayName}}'s Image" matListAvatar>
       <span class="mat-caption" mat-line *ngIf="!message.user.alias">{{message.user.displayName}}</span>
       <span class="mat-caption" mat-line *ngIf="message.user.alias">{{message.user.alias}}</span>
       <mat-icon class="mat-18" color="primary" *ngIf="message.user.observer">search</mat-icon>
       <span class="mat-subheading-1" mat-line>{{message.text}}</span>
-      <span class="mat-caption" mat-line>{{message.date}}</span>
+      <span class="mat-body" mat-line>{{message.date}}</span>
       <mat-divider *ngIf="!last"></mat-divider>
     </mat-list-item>
   </mat-list>
+  <span fxFlex></span>
   <mat-divider></mat-divider>
   <div fxLayout="row" fxFlex="5" fxLayoutAlign="center center">
     <button mat-icon-button *ngIf="inputOpen" (click)="toggleInput()">
