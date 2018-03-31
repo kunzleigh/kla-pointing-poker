@@ -7,7 +7,7 @@
         <span class="mat-subheading-1" mat-line *ngIf="!user.alias">{{user.displayName}}</span>
         <span class="mat-subheading-1" mat-line *ngIf="user.alias">{{user.alias}}</span>
         <span class="mat-caption" mat-line>{{user.email}}</span>
-        <mat-icon class="mat-18" color="primary" *ngIf="user.observer">search</mat-icon>
+        <mat-icon class="mat-18 observer" color="primary" *ngIf="user.observer">search</mat-icon>
         <button mat-raised-button color="primary" class="approve" tabIndex="-1" (click)="approveUser(user)">Approve</button>
       </mat-list-item>
     </mat-list>
@@ -15,6 +15,6 @@
   <span fxFlex></span>
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" class="approve">Approve All</button>
+    <button mat-raised-button color="primary" class="approve" (click)="approveAll()">Approve All</button>
   </mat-dialog-actions>
 </div>

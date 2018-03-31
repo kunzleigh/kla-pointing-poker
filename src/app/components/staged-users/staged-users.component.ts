@@ -27,6 +27,8 @@ export class StagedUsersComponent implements OnInit {
   }
 
   approveAll() {
-
+    this.stagedUsers.forEach(user => {
+      this.approveUser(user);
+    });
   }
 }
