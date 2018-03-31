@@ -21,10 +21,11 @@
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="95"
-       *ngIf="_authService.currentUser && (_authService.currentUser.staging || _authService.authLoading)">
-    <app-waiting fxFlex="15" class="mat-elevation-z7 waiting-box"></app-waiting>
-  </div>
+  <mat-sidenav-container class="waiting-container" *ngIf="_authService.currentUser && (_authService.currentUser.staging || _authService.authLoading)">
+    <mat-sidenav-content fxLayout="row" fxLayoutAlign="center">
+      <app-waiting fxFlex="15"></app-waiting>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
   <ng-template #login>
     <mat-sidenav-container class="login-container">
       <mat-sidenav-content>

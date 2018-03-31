@@ -28,7 +28,7 @@
   padding: 20px;
 }
 
-.login-container {
+.login-container, .waiting-container {
   height: 100%;
 }
 
