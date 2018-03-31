@@ -31,3 +31,7 @@
 .login-container {
   height: 100%;
 }
+
+.team-container, .observer-container {
+  padding: 16px;
+}

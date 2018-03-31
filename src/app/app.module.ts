@@ -29,7 +29,8 @@ import { ObserverComponent } from './components/observer/observer.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { StagedUsersComponent } from './components/staged-users/staged-users.component';
 import { WaitingComponent } from './components/waiting/waiting.component';
-import {ThemeService} from './theme.service';
+import {ThemeService} from './services/theme.service';
+import {StagedUsersService} from './services/staged-users.service';
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import {ThemeService} from './theme.service';
     MatDialogModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, DbService, ThemeService],
+  providers: [AuthService, DbService, ThemeService, StagedUsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

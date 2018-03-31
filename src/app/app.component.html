@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFill [ngClass]="{'kla-dark': _themeService.isDark}">
   <app-nav></app-nav>
   <div *ngIf="_authService.currentUser;let currentUser; else login">
-    <mat-sidenav-container class="chat-container" *ngIf="!_authService.currentUser.staging">
+    <mat-sidenav-container class="chat-container" *ngIf="!_authService.currentUser.staging && !_authService.authLoading">
       <mat-sidenav #sidenav mode="side" [(opened)]="chatOpened" class="chat-drawer">
         <app-chat fxFill></app-chat>
       </mat-sidenav>
@@ -9,21 +9,20 @@
         <button mat-fab (click)="sidenav.toggle()" color="primary" class="chat-button">
           <mat-icon class="mat-24">chat_bubble_outline</mat-icon>
         </button>
-        <span fxFlex></span>
-        <div *ngIf="!_authService.observer">
-          <div fxLayout="row" fxLayoutGap="35px" fxFill id="app-component">
-            <div fxLayout="column" fxFlex="65" fxFill>
-              <app-point-grid></app-point-grid>
-            </div>
-            <app-team fxFlex="35"></app-team>
+        <div *ngIf="!_authService.observer" fxLayout="row" fxLayoutGap="35px" fxFill id="app-component" fxFlex="92">
+          <div fxLayout="column" fxFlex="65" fxFill>
+            <app-point-grid></app-point-grid>
+          </div>
+          <div fxLayout="column" fxFlex="35">
+            <app-team fxFlex="65"></app-team>
           </div>
         </div>
-        <app-observer fxFlex="92"></app-observer>
+        <app-observer fxFlex="92" class="observer-container" *ngIf="_authService.observer"></app-observer>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center" fxFlex="95"
-       *ngIf="_authService.currentUser && _authService.currentUser.staging">
+       *ngIf="_authService.currentUser && (_authService.currentUser.staging || _authService.authLoading)">
     <app-waiting fxFlex="15" class="mat-elevation-z7 waiting-box"></app-waiting>
   </div>
   <ng-template #login>

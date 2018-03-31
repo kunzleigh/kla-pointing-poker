@@ -17,61 +17,74 @@ export class AuthService {
   private _killswitch: Observable<boolean>;
   private _isConnected: Observable<boolean>;
   private _stagedUsersObservable: Observable<any[]>;
+  public _authLoading: boolean;
+
   constructor(private _afAuth: AngularFireAuth, private _dbService: DbService) {
-    // Check if cache exists
-    const cache = this.retrieveFromCache();
-    if (cache.session) {
-      this.observer = Boolean(cache.observer);
-      this.alias = cache.alias;
-      this.session = cache.session;
-    }
     this._authState = this._afAuth.authState;
     this._authState.subscribe(user => {
       if (user) {
         this._currentUser = user;
-        this._currentUser['staging'] = true;
-        const userToPost = {
-          displayName: user.displayName,
-          uid: user.uid,
-          email: user.email,
-          img: user.photoURL,
-          hasVoted: false,
-          observer: this._observer
-        };
-        if (this._alias) {
-          userToPost['alias'] = this._alias;
-        } else {
-          userToPost['alias'] = user.displayName;
-          this.alias = user.displayName;
-        }
-
-        this._dbService.getRef(this.session + '/users').once('value').then(users => {
-          if (users.val() === null) {
-            this.addUser(userToPost);
-            this._currentUser['staging'] = false;
+        this._authLoading = true;
+        // User has been cached
+        this._dbService.getRef('/overallUsers/' + user.uid).once('value').then(userCache => {
+          if (userCache.val() !== null) {
+            this._session = userCache.val().session;
+            this._observer = userCache.val().observer;
+            this._alias = userCache.val().alias;
           } else {
-            this.stageUser(userToPost);
-            this._currentUser['staging'] = true;
+            const cacheUserInDB = {
+              session: this._session,
+              observer: this._observer,
+              alias: this._alias,
+              uid: user.uid
+            };
+            this.addUserToOverall(cacheUserInDB);
           }
-        });
 
-        this._dbService.getRef(this.session + '/users/' + user.uid).onDisconnect().set(null);
-        this._dbService.readProperty('killswitch').valueChanges().subscribe(ks => {
-          if (ks && this.currentUser) {
-            this.logout(this.currentUser.uid);
+          this._currentUser['staging'] = true;
+          const userToPost = {
+            displayName: user.displayName,
+            uid: user.uid,
+            email: user.email,
+            img: user.photoURL,
+            hasVoted: false,
+            observer: this._observer
+          };
+          if (this._alias) {
+            userToPost['alias'] = this._alias;
+          } else {
+            userToPost['alias'] = user.displayName;
+            this.alias = user.displayName;
           }
-        });
-        this.addToCache();
 
-        this._stagedUsersObservable = this._dbService.readList(this._session + '/staged').valueChanges();
-        this._stagedUsersObservable.subscribe(stagedUsers => {
-          let currentlyStaging = false;
-          stagedUsers.forEach((user: any) => {
-            if (user.uid === this.currentUser.uid) {
-              currentlyStaging = true;
+          this._dbService.getRef(this.session + '/users').once('value').then(users => {
+            if (users.val() === null) {
+              this.addUser(userToPost);
+              this._currentUser['staging'] = false;
+            } else {
+              this.stageUser(userToPost);
+              this._currentUser['staging'] = true;
             }
           });
-          this.currentUser['staging'] = currentlyStaging;
+
+          this._dbService.getRef(this.session + '/users/' + user.uid).onDisconnect().set(null);
+          this._dbService.readProperty('killswitch').valueChanges().subscribe(ks => {
+            if (ks && this.currentUser) {
+              this.logout(this.currentUser.uid);
+            }
+          });
+
+          this._stagedUsersObservable = this._dbService.readList(this._session + '/staged').valueChanges();
+          this._stagedUsersObservable.subscribe(stagedUsers => {
+            let currentlyStaging = false;
+            stagedUsers.forEach((user: any) => {
+              if (user.uid === this.currentUser.uid) {
+                currentlyStaging = true;
+              }
+            });
+            this.currentUser['staging'] = currentlyStaging;
+          });
+          this._authLoading = false;
         });
       } else {
         this._currentUser = null;
@@ -88,6 +101,7 @@ export class AuthService {
     });
   }
 
+  //<editor-fold desc="Getters and Setters">
   get authState() {
     return this._authState;
   }
@@ -120,15 +134,20 @@ export class AuthService {
     this._session = newSession;
   }
 
+  get authLoading() {
+    return this._authLoading;
+  }
+  //</editor-fold>
+
   loginWithGoogle() {
     return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logout(uid: string) {
-    this._dbService.setProperty(this.session + '/users/' + uid, null);
+    this.removeUser(this.currentUser);
+    this.removeUserFromOverall(this.currentUser);
     this.session = null;
     this._afAuth.auth.signOut().then(success => {
-      this.removeFromCache();
     }, failure => {
     });
   }
@@ -150,28 +169,15 @@ export class AuthService {
     this._dbService.setProperty(this.session + '/users/' + user.uid, user);
   }
 
-  addToCache() {
-    window.localStorage.setItem('observer', this.observer ? 'true' : 'false');
-    window.localStorage.setItem('session', this.session);
-    window.localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-    window.localStorage.setItem('alias', this.alias);
+  removeUser(user) {
+    this._dbService.setProperty(this.session + '/users/' + user.uid, null);
   }
 
-  removeFromCache() {
-    window.localStorage.removeItem('observer');
-    window.localStorage.removeItem('session');
-    window.localStorage.removeItem('currentUser');
-    window.localStorage.removeItem('alias');
+  addUserToOverall(user) {
+    this._dbService.setProperty('/overallUsers/' + user.uid, user);
   }
 
-  retrieveFromCache() {
-    return {
-      observer: window.localStorage.getItem('observer'),
-      session: window.localStorage.getItem('session'),
-      currentUser: window.localStorage.getItem('currentUser'),
-      alias: window.localStorage.getItem('alias'),
-    };
+  removeUserFromOverall(user) {
+    this._dbService.removeProperty('/overallUsers/' + user.uid);
   }
-
-
 }
