@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 $kla-primary: mat-palette($mat-blue, 400);
@@ -19,17 +20,14 @@ $kla-dark-theme: mat-dark-theme($kla-dark-primary, $kla-dark-accent, $kla-dark-w
   @include angular-material-theme($kla-dark-theme);
 }
 
-
 html {
   height: 100%;
 }
 
 body {
   margin: 0;
-  background-color: mat-color($kla-background);
   height: 100%;
 }
-
 
 #app-component {
   margin: 0;
@@ -39,4 +37,8 @@ body {
 
 .full-width {
   width: 100%;
+}
+
+mat-card {
+  border-radius: 10px !important;
 }

@@ -1,18 +1,23 @@
-<form fxLayout="column">
-  <div fxLayout="row">
-    <mat-form-field>
-      <input type="text" matInput placeholder="Session ID" [(ngModel)]="session" required name="session"/>
-    </mat-form-field>
-
-  </div>
-  <div fxLayout="row">
-    <mat-form-field>
-      <input type="text" matInput placeholder="Alias" [(ngModel)]="alias" name="alias"/>
-    </mat-form-field>
-  </div>
-  <div fxLayout="row">
-    <mat-checkbox [(ngModel)]="observer" color="primary" value="true" name="observer">Observer</mat-checkbox>
-    <span fxFlex></span>
-    <button mat-button color="primary" (click)="login()">Login with Google</button>
-  </div>
-</form>
+<div fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-card fxFlex="35" class="mat-elevation-z7">
+    <mat-card-content fxFill>
+      <form fxLayout="column">
+        <div fxLayout="row">
+          <mat-form-field>
+            <input type="text" matInput placeholder="Session ID" [(ngModel)]="session" required name="session"/>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field>
+            <input type="text" matInput placeholder="Alias" [(ngModel)]="alias" name="alias"/>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-checkbox [(ngModel)]="observer" color="primary" value="true" name="observer">Observer</mat-checkbox>
+          <span fxFlex></span>
+          <button mat-button color="primary" (click)="login()">Login with Google</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -14,7 +14,7 @@
             <div fxLayout="column" fxFlex="65" fxFill>
               <app-point-grid></app-point-grid>
             </div>
-            <app-team fxFlex="35" class="mat-elevation-z7"></app-team>
+            <app-team fxFlex="35"></app-team>
           </div>
         </div>
         <div *ngIf="_authService.observer" fxFill>
@@ -30,8 +30,10 @@
     <app-waiting fxFlex="15" class="mat-elevation-z7 waiting-box"></app-waiting>
   </div>
   <ng-template #login>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFill>
-      <app-login fxFlex="35" class="mat-elevation-z7 team-box"></app-login>
-    </div>
+    <mat-sidenav-container class="login-container">
+      <mat-sidenav-content>
+        <app-login fxFill></app-login>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </ng-template>
 </div>

@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
 
   public currentUser;
   public chatOpened: boolean;
+
   constructor(public _authService: AuthService, public _themeService: ThemeService) {
   }
 
