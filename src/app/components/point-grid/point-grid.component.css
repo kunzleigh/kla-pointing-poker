@@ -2,3 +2,21 @@
   border-radius: 10px;
   height: 85%;
 }
+
+mat-card.selected-tile {
+  background-color: rgba(80, 80, 80, .15) !important;
+  position: relative;
+}
+
+.selected-chip-list {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.selected-chip {
+  color: white;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}

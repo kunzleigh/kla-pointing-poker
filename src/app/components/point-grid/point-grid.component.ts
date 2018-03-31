@@ -20,12 +20,14 @@ export class PointGridComponent implements OnInit {
     {text: '34', cols: 1, rows: 1, value: 34},
     {text: '55', cols: 1, rows: 1, value: 55},
   ];
+  selectedPointValue: number;
   constructor(private _dbService: DbService, public _authService: AuthService) { }
 
   ngOnInit() {
   }
 
   vote(pointValue: number) {
+    this.selectedPointValue = pointValue;
     this._dbService.setProperty(this._authService.session + '/votes/' + this._authService.currentUser.uid, {
       uid: this._authService.currentUser.uid,
       points: pointValue

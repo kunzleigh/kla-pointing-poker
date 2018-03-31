@@ -11,7 +11,8 @@ import {PointGridComponent} from './components/point-grid/point-grid.component';
 
 // Material
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatGridListModule, MatIconModule, MatInputModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule, MatDividerModule, MatGridListModule, MatIconModule,
+  MatInputModule,
   MatListModule,
   MatProgressBarModule, MatProgressSpinnerModule, MatSidenavModule,
   MatToolbarModule
@@ -68,6 +69,7 @@ import {StagedUsersService} from './services/staged-users.service';
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatDialogModule,
+    MatChipsModule,
     FlexLayoutModule
   ],
   providers: [AuthService, DbService, ThemeService, StagedUsersService],
