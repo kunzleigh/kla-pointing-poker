@@ -5,10 +5,11 @@
       <mat-sidenav #sidenav mode="side" [(opened)]="chatOpened" class="chat-drawer">
         <app-chat fxFill></app-chat>
       </mat-sidenav>
-      <mat-sidenav-content>
+      <mat-sidenav-content fxLayoutAlign="end" fxLayout="row">
         <button mat-fab (click)="sidenav.toggle()" color="primary" class="chat-button">
           <mat-icon class="mat-24">chat_bubble_outline</mat-icon>
         </button>
+        <span fxFlex></span>
         <div *ngIf="!_authService.observer">
           <div fxLayout="row" fxLayoutGap="35px" fxFill id="app-component">
             <div fxLayout="column" fxFlex="65" fxFill>
@@ -17,11 +18,7 @@
             <app-team fxFlex="35"></app-team>
           </div>
         </div>
-        <div *ngIf="_authService.observer" fxFill>
-          <div fxLayout="row" fxFill fxLayoutAlign="center center">
-            <app-observer class="mat-elevation-z7 observer-box" fxFlex="95"></app-observer>
-          </div>
-        </div>
+        <app-observer fxFlex="92"></app-observer>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>

@@ -21,7 +21,7 @@ export class AuthService {
     // Check if cache exists
     const cache = this.retrieveFromCache();
     if (cache.session) {
-      this.observer = Boolean(this.observer);
+      this.observer = Boolean(cache.observer);
       this.alias = cache.alias;
       this.session = cache.session;
     }

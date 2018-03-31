@@ -1,12 +1,14 @@
-<mat-grid-list cols="3" rowHeight="200px" fxFill fxLayout="row" fxLayoutAlign="center center">
+<mat-grid-list cols="5" rowHeight="200px" fxFill fxLayout="row" fxLayoutAlign="center center">
   <mat-grid-tile
     *ngFor="let tile of points"
     [colspan]="1"
-    [rowspan]="1">
-    <mat-card fxFlex="95" class="mat-elevation-z4 point-tile" fxLayoutAlign="start center">
-      <mat-card-content fxLayout="row" class="point-value">
-        <h1 class="mat-display-1">{{ tile.text }}</h1>
-      </mat-card-content>
+    [rowspan]="2">
+    <mat-card fxFlex="95" class="mat-elevation-z4 point-tile" fxLayout="column" fxLayoutAlign="start center">
+      <mat-card-header>
+        <mat-card-title>
+          <span class="mat-display-1">{{tile.text}}</span>
+        </mat-card-title>
+      </mat-card-header>
       <mat-list class="user-list">
         <mat-list-item *ngFor="let user of userVotes[tile.value]">
           <img src="{{user.img}}" alt="{{user.displayName}}'s Image" matListAvatar>
@@ -17,28 +19,30 @@
       </mat-list>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <div class="mat-elevation-z4 ticket-data">
-      <div fxLayout="row" class="full-height">
-        <div fxFlex="50" fxLayout="column" class="current-ticket">
-          <div fxLayout="row" fxFlex="20">
-            <span class="mat-headline">{{ticket}}</span>
+  <mat-grid-tile [colspan]="5" [rowspan]="2">
+    <mat-card fxFill class="mat-elevation-z4 point-tile">
+      <mat-card-content fxFill>
+        <div fxLayout="row" class="full-height">
+          <div fxFlex="50" fxLayout="column" class="current-ticket">
+            <div fxLayout="row" fxFlex="20">
+              <span class="mat-headline">{{ticket}}</span>
+            </div>
+            <div fxLayout="row" fxFlex="80">
+              <span class="mat-body-1 ticket-description">{{description}}</span>
+            </div>
           </div>
-          <div fxLayout="row" fxFlex="80">
-            <span class="mat-body-1 ticket-description">{{description}}</span>
+          <div fxFlex="50" class="past-tickets">
+            <mat-list>
+              <mat-list-item *ngFor="let pastTicket of pastTickets">
+                <span class="mat-subheading-1" mat-line>Ticket: {{pastTicket.ticket}}</span>
+                <span class="mat-caption" mat-line>Points: {{pastTicket.agreedPoints}}</span>
+                <span class="mat-subheading-1" mat-line>Description: {{pastTicket.description}}</span>
+                <mat-divider *ngIf="!$last"></mat-divider>
+              </mat-list-item>
+            </mat-list>
           </div>
         </div>
-        <div fxFlex="50" class="past-tickets">
-          <mat-list>
-            <mat-list-item *ngFor="let pastTicket of pastTickets">
-              <span class="mat-subheading-1" mat-line>Ticket: {{pastTicket.ticket}}</span>
-              <span class="mat-caption" mat-line>Points: {{pastTicket.agreedPoints}}</span>
-              <span class="mat-subheading-1" mat-line>Description: {{pastTicket.description}}</span>
-              <mat-divider *ngIf="!$last"></mat-divider>
-            </mat-list-item>
-          </mat-list>
-        </div>
-      </div>
-    </div>
+      </mat-card-content>
+    </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
