@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center" fxFill>
   <mat-card class="mat-elevation-z7">
-    <mat-card-content fxFill>
+    <mat-card-content fxFill fxLayout="column">
       <form>
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <mat-form-field>
@@ -16,16 +16,16 @@
         </div>
         <mat-progress-bar mode="determinate" value="{{percentVoted}}"></mat-progress-bar>
       </form>
-      <mat-list class="user-list">
+      <mat-list>
         <mat-list-item *ngFor="let user of users">
           <img src="{{user.img}}" alt="{{user.displayName}}'s Image" matListAvatar>
           <span class="mat-subheading-1" mat-line *ngIf="!user.alias">{{user.displayName}}</span>
           <span class="mat-subheading-1" mat-line *ngIf="user.alias">{{user.alias}}</span>
           <span class="mat-caption" mat-line>{{user.email}}</span>
           <mat-icon class="mat-18" color="primary" *ngIf="user.observer">search</mat-icon>
-          <mat-icon class="mat-18" color="primary" *ngIf="user.hasVoted && percentVoted != 100 && !user.observer">done
+          <mat-icon class="mat-18" color="primary" *ngIf="user.hasVoted && percentVoted != 100 && !user.observer">poll
           </mat-icon>
-          <mat-icon class="mat-18" color="warn" *ngIf="!user.hasVoted && percentVoted != 100 && !user.observer">close
+          <mat-icon class="mat-18" color="warn" *ngIf="!user.hasVoted && percentVoted != 100 && !user.observer">poll
           </mat-icon>
           <div *ngIf="percentVoted === 100 && !user.observer">
             <div *ngFor="let vote of votes">
@@ -34,6 +34,7 @@
           </div>
         </mat-list-item>
       </mat-list>
+      <span fxFlex></span>
       <div fxLayout="row">
         <span class="mat-subheading-2">Average Points: </span>
         <mat-icon class="mat-18 point-average" *ngIf="percentVoted !== 100">settings_ethernet</mat-icon>
@@ -47,7 +48,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="end">
         <button mat-raised-button color="primary" (click)="clear()" class="reset">Reset Ticket</button>
-        <button mat-raised-button color="accent" [disabled]="!consensus" (click)="saveAndClear()">Save and Clear
+        <button mat-raised-button color="accent" [disabled]="!consensus || percentVoted !== 100" (click)="saveAndClear()">Save and Clear
         </button>
       </div>
     </mat-card-content>

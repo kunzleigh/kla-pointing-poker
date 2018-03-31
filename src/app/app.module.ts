@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
-import { PointCardComponent } from './components/point-card/point-card.component';
 import { UserComponent } from './components/user/user.component';
 import { TeamComponent } from './components/team/team.component';
 import { firebaseConfig } from '../environments/environment';
@@ -36,7 +35,6 @@ import {StagedUsersService} from './services/staged-users.service';
 @NgModule({
   declarations: [
     AppComponent,
-    PointCardComponent,
     UserComponent,
     TeamComponent,
     PointGridComponent,

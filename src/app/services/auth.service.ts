@@ -30,12 +30,10 @@ export class AuthService {
           if (userCache.val() !== null) {
             this._session = userCache.val().session;
             this._observer = userCache.val().observer;
-            this._alias = userCache.val().alias;
           } else {
             const cacheUserInDB = {
               session: this._session,
               observer: this._observer,
-              alias: this._alias,
               uid: user.uid
             };
             this.addUserToOverall(cacheUserInDB);

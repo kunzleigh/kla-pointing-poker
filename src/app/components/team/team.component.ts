@@ -72,7 +72,7 @@ export class TeamComponent implements OnInit {
             this.percentVoted = 0;
             this.votes = [];
             this.pointSum = 0;
-            // this._dbService.setProperty(this._authService.session + '/users/' + this._authService.currentUser.uid + '/hasVoted', false);
+            this._dbService.setProperty(this._authService.session + '/users/' + this._authService.currentUser.uid + '/hasVoted', false);
           }
         });
     });
