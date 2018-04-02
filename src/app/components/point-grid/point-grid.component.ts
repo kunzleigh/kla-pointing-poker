@@ -24,6 +24,12 @@ export class PointGridComponent implements OnInit {
   constructor(private _dbService: DbService, public _authService: AuthService) { }
 
   ngOnInit() {
+    this._dbService.readProperty(this._authService.session + '/users/' + this._authService.currentUser.uid + '/hasVoted').valueChanges()
+      .subscribe(userHasVoted => {
+        if (!userHasVoted) {
+          this.selectedPointValue = undefined;
+        }
+      });
   }
 
   vote(pointValue: number) {
