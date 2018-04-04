@@ -3,6 +3,7 @@ import {DbService} from '../../services/db.service';
 import {AuthService} from '../../services/auth.service';
 import {StagedUsersComponent} from '../staged-users/staged-users.component';
 import {MatDialog} from '@angular/material';
+import {Angular2Csv} from 'angular2-csv';
 
 @Component({
   selector: 'app-observer',
@@ -137,5 +138,12 @@ export class ObserverComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.stagedUsersDialogOpen = false;
     });
+  }
+
+  exportPastTickets() {
+    if (this.pastTickets) {
+      const headers = ['Consensus Points', 'Description', 'Ticket', 'Order Number'];
+      new Angular2Csv(this.pastTickets, 'Pointing Results for Session ' + this._authService.session + ' - ' + new Date().toLocaleDateString('en-us'), {headers: headers});
+    }
   }
 }
