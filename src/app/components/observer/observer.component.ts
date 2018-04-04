@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DbService} from '../../services/db.service';
 import {AuthService} from '../../services/auth.service';
+import {StagedUsersComponent} from '../staged-users/staged-users.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-observer',
@@ -33,16 +35,24 @@ export class ObserverComponent implements OnInit {
 
   pastTickets: any[];
 
-  constructor(private _dbService: DbService, private _authService: AuthService) {
+  stagedUsersDialogOpen: boolean;
+
+  constructor(private _dbService: DbService, private _authService: AuthService, private matDialog: MatDialog) {
     this.percentVoted = 0;
     this.userVotes = {};
     this.pastTickets = [];
+    this.stagedUsersDialogOpen = false;
   }
 
   ngOnInit() {
     this._dbService.readList(this._authService.session + '/users').valueChanges().subscribe(users => {
       this.users = users;
       this.voterCount = this.howManyNonObservers();
+    });
+    this._dbService.readList(this._authService.session + '/staged').valueChanges().subscribe(stagedUsers => {
+      if (!this.stagedUsersDialogOpen && stagedUsers.length > 0) {
+        this.openStagedUsersDialog();
+      }
     });
     this._dbService.readList(this._authService.session + '/tickets').valueChanges().map(tickets => {
       return tickets.filter((ticket: any) => typeof ticket !== 'number' && ticket.uid);
@@ -118,4 +128,14 @@ export class ObserverComponent implements OnInit {
     return returnUser;
   }
 
+  openStagedUsersDialog() {
+    this.stagedUsersDialogOpen = true;
+    const dialogRef = this.matDialog.open(StagedUsersComponent, {
+      width: '35%',
+      height: '35%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.stagedUsersDialogOpen = false;
+    });
+  }
 }

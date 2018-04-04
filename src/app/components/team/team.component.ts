@@ -116,7 +116,7 @@ export class TeamComponent implements OnInit {
       height: '35%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.stagedUsersDialogOpen = false;
     });
   }
 }

@@ -12,7 +12,7 @@
 
 .ticket-description {
   overflow-y: auto;
-  margin: 8px 0;
+  margin: 0 8px;
 }
 
 .past-tickets {
@@ -29,4 +29,8 @@
 
 .user-list {
   padding-top: 0;
+}
+
+.export {
+  color: white;
 }
