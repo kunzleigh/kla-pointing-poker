@@ -1,44 +1,4 @@
-@import '~@angular/material/theming';
+/* You can add global styles to this file, and also import other style files */
 
-@include mat-core();
-
-$kla-primary: mat-palette($mat-blue, 400);
-$kla-accent: mat-palette($mat-green, 100);
-$kla-warn: mat-palette($mat-red, 300);
-$kla-background: mat-palette($mat-blue-gray, 50);
-$kla-theme: mat-light-theme($kla-primary, $kla-accent, $kla-warn);
-
-$kla-dark-primary: mat-palette($mat-blue-gray, 400);
-$kla-dark-accent: mat-palette($mat-indigo, 100);
-$kla-dark-warn: mat-palette($mat-red, 300);
-$kla-dark-background: mat-palette($mat-grey, 800);
-$kla-dark-theme: mat-dark-theme($kla-dark-primary, $kla-dark-accent, $kla-dark-warn);
-
-@include angular-material-theme($kla-theme);
-
-.kla-dark {
-  @include angular-material-theme($kla-dark-theme);
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  height: 100%;
-}
-
-#app-component {
-  margin: 0;
-  padding: 60px;
-  height: 85%;
-}
-
-.full-width {
-  width: 100%;
-}
-
-mat-card {
-  border-radius: 10px !important;
-}
+html, body { height: 99%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

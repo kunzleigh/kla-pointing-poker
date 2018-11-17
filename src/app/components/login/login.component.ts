@@ -1,32 +1,28 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  session: string;
-  alias: string;
-  observer = false;
-  constructor(private _authService: AuthService) {
+  public user: User;
+  constructor(public authService: AuthService) {
+  }
+
+  public login() {
+    this.authService.login();
+  }
+
+  public logout() {
+    this.authService.logout();
   }
 
   ngOnInit() {
+    this.authService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
-
-  login() {
-    if (this.session) {
-      this._authService.session = this.session;
-      this._authService.alias = this.alias;
-      this._authService.observer = this.observer;
-      this._authService.loginWithGoogle().then(success => {
-
-      }, rejected => {
-        this.session = undefined;
-      });
-    }
-  }
-
 }

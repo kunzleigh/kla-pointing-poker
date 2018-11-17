@@ -1,29 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from './services/auth.service';
-import {ThemeService} from './services/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/index';
+import { User } from 'firebase';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  // public user: User;
+  public user = 1;
 
-  public currentUser;
-  public chatOpened: boolean;
-
-  constructor(public _authService: AuthService, public _themeService: ThemeService) {
+  constructor(public authService: AuthService) {
   }
 
-  ngOnInit() {
-    this._authService.authState.subscribe(user => {
-      if (user) {
-        this.currentUser = user;
-      } else {
-        this.currentUser = null;
-      }
+  public ngOnInit() {
+    this.authService.getUser().subscribe((user: User) => {
+      // this.user = user;
+      this.user = 1;
     });
   }
 }
 
+//
+// {
+//   "rules": {
+//   "users": {
+//     "$uid": {
+//       ".read": "auth != null",
+//         ".write": "$uid == auth.uid"
+//     }
+//   }
+// }
+// }
 

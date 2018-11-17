@@ -1,36 +1,14 @@
-<div fxLayout="column" fxFill [ngClass]="{'kla-dark': _themeService.isDark}">
-  <app-nav></app-nav>
-  <div *ngIf="_authService.currentUser;let currentUser; else login">
-    <mat-sidenav-container class="chat-container" *ngIf="!_authService.currentUser.staging && !_authService.authLoading">
-      <mat-sidenav #sidenav mode="side" [(opened)]="chatOpened" class="chat-drawer">
-        <app-chat fxFill></app-chat>
-      </mat-sidenav>
-      <mat-sidenav-content fxLayoutAlign="end" fxLayout="row">
-        <button mat-fab (click)="sidenav.toggle()" color="primary" class="chat-button">
-          <mat-icon class="mat-24">chat_bubble_outline</mat-icon>
-        </button>
-        <div *ngIf="!_authService.observer" fxLayout="row" fxLayoutGap="35px" fxFill id="app-component" fxFlex="92">
-          <div fxLayout="column" fxFlex="65" fxFill>
-            <app-point-grid></app-point-grid>
-          </div>
-          <div fxLayout="column" fxFlex="35">
-            <app-team fxFlex="95"></app-team>
-          </div>
-        </div>
-        <app-observer fxFlex="92" class="observer-container" *ngIf="_authService.observer"></app-observer>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </div>
-  <mat-sidenav-container class="waiting-container" *ngIf="_authService.currentUser && (_authService.currentUser.staging || _authService.authLoading)">
-    <mat-sidenav-content fxLayout="row" fxLayoutAlign="center">
-      <app-waiting fxFlex="15"></app-waiting>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <ng-template #login>
-    <mat-sidenav-container class="login-container">
-      <mat-sidenav-content>
-        <app-login fxFill></app-login>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+<div fxLayout="column" fxFill>
+  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" fxFlex="5" color="primary">
+    <span>Kunz, Leigh & Associates</span>
+    <span fxFlex></span>
+    <app-login></app-login>
+  </mat-toolbar>
+  <app-landing *ngIf="user; else needToLogin" fxFlex="95"></app-landing>
+  <ng-template #needToLogin>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="95">
+      <h3>Please log in to use this application.</h3>
+    </div>
   </ng-template>
 </div>
+<router-outlet></router-outlet>
