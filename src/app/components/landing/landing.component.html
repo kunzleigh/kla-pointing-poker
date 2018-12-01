@@ -2,7 +2,6 @@
   <div fxFlex="20" class="user-area">
     <div *ngIf="loggedInUsersObs | async as users" fxLayout="column" fxLayoutGap="4px">
       <div *ngFor="let user of users">
-        <!--{{ user | json }}-->
         <app-user [displayName]="user.displayName" [photoURL]="user.photoURL" [email]="user.email"></app-user>
       </div>
     </div>
@@ -14,11 +13,17 @@
           <mat-card-title>Create a new room</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form fxLayout="row" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
+          <form fxLayout="row" fxLayoutGap="16px" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
             <mat-form-field>
               <input type="text" matInput placeholder="Name" formControlName="name">
               <mat-error *ngIf="newRoomForm.get('name').hasError('required')">
-                A name is required to create a new room
+                Ya gotta have a name...
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Team" formControlName="team">
+              <mat-error *ngIf="newRoomForm.get('team').hasError('required')">
+                And a team name...
               </mat-error>
             </mat-form-field>
             <span fxFlex></span>
@@ -30,6 +35,11 @@
           </form>
         </mat-card-content>
       </mat-card>
+      <div *ngIf="activeRoomsObs | async as rooms" fxLayout="column" fxLayoutGap="16px">
+        <div *ngFor="let room of rooms">
+          <app-room-description [room]="room"></app-room-description>
+        </div>
+      </div>
     </mat-card>
   </div>
 </div>

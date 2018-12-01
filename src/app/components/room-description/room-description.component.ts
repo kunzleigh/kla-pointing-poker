@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-room-description',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./room-description.component.scss']
 })
 export class RoomDescriptionComponent implements OnInit {
-
+  @Input() public room: any;
   constructor() { }
 
   ngOnInit() {
