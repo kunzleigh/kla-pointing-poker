@@ -1,11 +1,35 @@
-<div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="16px" fxFill class="container">
-  <mat-card fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column" fxLayoutAlign="center center" style="height: 20vw; width: 20vw;">
-      <mat-icon class="new-session-icon" color="primary">add</mat-icon>
-      <span class="mat-headline">Start a new session</span>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="16px" fxFill>
+  <div fxFlex="20" class="user-area">
+    <div *ngIf="loggedInUsersObs | async as users" fxLayout="column" fxLayoutGap="4px">
+      <div *ngFor="let user of users">
+        <!--{{ user | json }}-->
+        <app-user [displayName]="user.displayName" [photoURL]="user.photoURL" [email]="user.email"></app-user>
+      </div>
     </div>
-  </mat-card>
-  <mat-card fxFlex="50">
-    Simple Card
-  </mat-card>
+  </div>
+  <div class="landing-area" fxFlex="80" fxLayout="column">
+    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Create a new room</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form fxLayout="row" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Name" formControlName="name">
+              <mat-error *ngIf="newRoomForm.get('name').hasError('required')">
+                A name is required to create a new room
+              </mat-error>
+            </mat-form-field>
+            <span fxFlex></span>
+            <button mat-stroked-button>
+              <mat-icon>
+                add
+              </mat-icon>
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-card>
+  </div>
 </div>
