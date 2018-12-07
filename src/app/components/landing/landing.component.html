@@ -7,8 +7,8 @@
     </div>
   </div>
   <div class="landing-area" fxFlex="80" fxLayout="column">
-    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container" *ngIf="hasJoinedRoom | async as hasJoined; else notJoined">
-      asdfasdf
+    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="active-room-container" *ngIf="hasJoinedRoom | async as hasJoined; else notJoined">
+      <app-active-room></app-active-room>
     </mat-card>
     <ng-template #notJoined>
       <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container">

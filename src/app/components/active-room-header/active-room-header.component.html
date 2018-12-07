@@ -1,0 +1,10 @@
+<mat-toolbar color="accent">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <span>{{ name }}</span>
+    <span>{{ team }}</span>
+    <button mat-button (click)="leaveRoom()">Leave Room</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>{{ creator }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>

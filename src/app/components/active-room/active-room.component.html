@@ -1,0 +1,10 @@
+<div *ngIf="room | async as r">
+  <app-active-room-header [creator]="r.creator" [name]="r.name" [team]="r.team"></app-active-room-header>
+  <mat-grid-list cols="6" rowHeight="100px" gutterSize="32px">
+    <mat-grid-tile
+      *ngFor="let user of roomUsers"
+      [colspan]="2"
+      [rowspan]="1">
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

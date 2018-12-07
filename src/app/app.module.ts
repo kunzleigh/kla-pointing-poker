@@ -18,6 +18,8 @@ import { SessionComponent } from './components/session/session.component';
 import { UserComponent } from './components/user/user.component';
 import { RoomDescriptionComponent } from './components/room-description/room-description.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActiveRoomComponent } from './components/active-room/active-room.component';
+import { ActiveRoomHeaderComponent } from './components/active-room-header/active-room-header.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavComponent,
     SessionComponent,
     UserComponent,
-    RoomDescriptionComponent
+    RoomDescriptionComponent,
+    ActiveRoomComponent,
+    ActiveRoomHeaderComponent
   ],
   imports: [
     BrowserModule,
