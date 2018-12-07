@@ -12,9 +12,12 @@
   padding: 1.2em;
 }
 
+.room-container {
+  overflow-y: auto;
+}
+
 .new-room {
-  border: 2px dashed rgba(55, 55, 55, 1);
-  border-radius: 16px;
-  height: 5em;
-  cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }

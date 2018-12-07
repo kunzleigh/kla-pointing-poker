@@ -7,9 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class RoomDescriptionComponent implements OnInit {
   @Input() public room: any;
+  public roomUsers: any[];
   constructor() { }
 
   ngOnInit() {
+    if (this.room) {
+      this.roomUsers = Object.keys(this.room.users).map((i) => this.room.users[i]);
+    }
   }
 
 }

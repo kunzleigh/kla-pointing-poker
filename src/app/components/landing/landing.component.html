@@ -7,13 +7,13 @@
     </div>
   </div>
   <div class="landing-area" fxFlex="80" fxLayout="column">
-    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px">
-      <mat-card>
+    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container">
+      <mat-card class="new-room">
         <mat-card-header>
           <mat-card-title>Create a new room</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form fxLayout="row" fxLayoutGap="16px" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
+          <form fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
             <mat-form-field>
               <input type="text" matInput placeholder="Name" formControlName="name">
               <mat-error *ngIf="newRoomForm.get('name').hasError('required')">
@@ -26,6 +26,7 @@
                 And a team name...
               </mat-error>
             </mat-form-field>
+            <mat-checkbox formControlName="observer" color="primary">Join As Observer</mat-checkbox>
             <span fxFlex></span>
             <button mat-stroked-button>
               <mat-icon>

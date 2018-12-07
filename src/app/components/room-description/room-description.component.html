@@ -1,14 +1,29 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{ room.name }}</mat-card-title>
-    <mat-card-subtitle>{{ room.creator }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ room.creator }} - {{ room.team }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-
+    <mat-chip-list>
+      <mat-chip *ngFor="let user of roomUsers">
+        {{ user.displayName }}
+        <mat-icon *ngIf="user.observer; else notObs">
+          visibility
+        </mat-icon>
+        <ng-template #notObs>
+          <mat-icon>
+            how_to_vote
+          </mat-icon>
+        </ng-template>
+      </mat-chip>
+    </mat-chip-list>
   </mat-card-content>
   <mat-card-actions fxLayout="row" fxLayoutAlign="end">
-    <button mat-raised-button>
-      Join
+    <button mat-button>
+      Join As Observer
+    </button>
+    <button mat-raised-button color="primary">
+      Join As Voter
     </button>
   </mat-card-actions>
 </mat-card>

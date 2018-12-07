@@ -22,6 +22,7 @@ export class LandingComponent implements OnInit {
     this.newRoomForm = this.fb.group({
       name: ['', Validators.required],
       team: ['', Validators.required],
+      observer: [false]
     });
   }
 
@@ -30,10 +31,21 @@ export class LandingComponent implements OnInit {
 
   public createNewRoom(): void {
     if (this.newRoomForm.valid) {
-      this.db.setProperty(`rooms/${uuid()}`, {
+      const newRoomUUID = uuid();
+      const newUserObj = {};
+      newUserObj[this.authService.authenticatedUser.value.uid] = {
+        displayName: this.authService.authenticatedUser.value.displayName,
+        uid: this.authService.authenticatedUser.value.uid,
+        email: this.authService.authenticatedUser.value.email,
+        photoURL: this.authService.authenticatedUser.value.photoURL,
+        observer: this.newRoomForm.get('observer').value
+      };
+      console.log(newUserObj);
+      this.db.setProperty(`rooms/${newRoomUUID}`, {
         name: this.newRoomForm.get('name').value,
         team: this.newRoomForm.get('team').value,
-        creator: this.authService.authenticatedUser.value.displayName
+        creator: this.authService.authenticatedUser.value.displayName,
+        users: newUserObj
       });
       this.newRoomForm.reset();
     }
