@@ -7,40 +7,45 @@
     </div>
   </div>
   <div class="landing-area" fxFlex="80" fxLayout="column">
-    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container">
-      <mat-card class="new-room">
-        <mat-card-header>
-          <mat-card-title>Create a new room</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <form fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
-            <mat-form-field>
-              <input type="text" matInput placeholder="Name" formControlName="name">
-              <mat-error *ngIf="newRoomForm.get('name').hasError('required')">
-                Ya gotta have a name...
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="text" matInput placeholder="Team" formControlName="team">
-              <mat-error *ngIf="newRoomForm.get('team').hasError('required')">
-                And a team name...
-              </mat-error>
-            </mat-form-field>
-            <mat-checkbox formControlName="observer" color="primary">Join As Observer</mat-checkbox>
-            <span fxFlex></span>
-            <button mat-stroked-button>
-              <mat-icon>
-                add
-              </mat-icon>
-            </button>
-          </form>
-        </mat-card-content>
-      </mat-card>
-      <div *ngIf="activeRoomsObs | async as rooms" fxLayout="column" fxLayoutGap="16px">
-        <div *ngFor="let room of rooms">
-          <app-room-description [room]="room"></app-room-description>
-        </div>
-      </div>
+    <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container" *ngIf="hasJoinedRoom | async as hasJoined; else notJoined">
+      asdfasdf
     </mat-card>
+    <ng-template #notJoined>
+      <mat-card fxFlex="100" fxLayout="column" fxLayoutGap="16px" class="room-container">
+        <mat-card class="new-room">
+          <mat-card-header>
+            <mat-card-title>Create a new room</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" [formGroup]="newRoomForm" (ngSubmit)="createNewRoom()">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Name" formControlName="name">
+                <mat-error *ngIf="newRoomForm.get('name').hasError('required')">
+                  Ya gotta have a name...
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Team" formControlName="team">
+                <mat-error *ngIf="newRoomForm.get('team').hasError('required')">
+                  And a team name...
+                </mat-error>
+              </mat-form-field>
+              <mat-checkbox formControlName="observer" color="primary">Join As Observer</mat-checkbox>
+              <span fxFlex></span>
+              <button mat-stroked-button>
+                <mat-icon>
+                  add
+                </mat-icon>
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="activeRoomsObs | async as rooms" fxLayout="column" fxLayoutGap="16px">
+          <div *ngFor="let room of rooms">
+            <app-room-description [room]="room"></app-room-description>
+          </div>
+        </div>
+      </mat-card>
+    </ng-template>
   </div>
 </div>

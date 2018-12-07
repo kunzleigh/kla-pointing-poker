@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/index';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
 import { AuthService } from '../../services/auth.service';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'app-landing',
@@ -13,12 +14,15 @@ import { AuthService } from '../../services/auth.service';
 export class LandingComponent implements OnInit {
   public loggedInUsersObs: Observable<any[]>;
   public activeRoomsObs: Observable<any[]>;
+  public hasJoinedRoom: Observable<boolean>;
   public newRoomForm: FormGroup;
   constructor(private db: DbService,
               private authService: AuthService,
+              private stateService: StateService,
               private fb: FormBuilder) {
     this.loggedInUsersObs = this.db.readList('users').valueChanges();
     this.activeRoomsObs = this.db.readList('rooms').valueChanges();
+    this.hasJoinedRoom = this.stateService.roomWasJoined();
     this.newRoomForm = this.fb.group({
       name: ['', Validators.required],
       team: ['', Validators.required],
@@ -45,7 +49,8 @@ export class LandingComponent implements OnInit {
         name: this.newRoomForm.get('name').value,
         team: this.newRoomForm.get('team').value,
         creator: this.authService.authenticatedUser.value.displayName,
-        users: newUserObj
+        users: newUserObj,
+        uid: newRoomUUID
       });
       this.newRoomForm.reset();
     }

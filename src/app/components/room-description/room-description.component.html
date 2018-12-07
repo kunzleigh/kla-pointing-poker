@@ -19,10 +19,10 @@
     </mat-chip-list>
   </mat-card-content>
   <mat-card-actions fxLayout="row" fxLayoutAlign="end">
-    <button mat-button>
+    <button mat-button (click)="joinAsObserver()">
       Join As Observer
     </button>
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="primary" (click)="joinAsVoter()">
       Join As Voter
     </button>
   </mat-card-actions>
